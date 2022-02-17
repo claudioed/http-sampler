@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "http-sampler.fullname" . }}
+  labels:
+    {{- include "http-sampler.labels" . | nindent 4 }}
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - analytics-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /trace
+      route:
+        - destination:
+            host: http-sampler
+            port:
+              number: 8888
+            subset: v1
+          weight: 100

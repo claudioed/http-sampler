@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ include "http-sampler.fullname" . }}
+  labels:
+    {{- include "http-sampler.labels" . | nindent 4 }}
+spec:
+  host: http-sampler
+  subsets:
+    - name: v1
+      labels:
+        version: v1

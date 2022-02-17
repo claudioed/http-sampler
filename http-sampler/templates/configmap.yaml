@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "http-sampler.fullname" . }}
+  labels:
+    {{- include "http-sampler.labels" . | nindent 4 }}
+data:
+  INGESTER_URL: "ingester.analytics.svc.cluster.local"
+  INGESTER_PORT: "80"
